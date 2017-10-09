@@ -196,7 +196,8 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
 
 - (UIView *)toastViewForMessage:(NSString *)message title:(NSString *)title image:(UIImage *)image style:(CSToastStyle *)style {
     if (_toastView) {
-        [self hideToast:_toastView];
+        [_toastView removeFromSuperview];
+        [[self cs_activeToasts] removeObject:_toastView];
     }
     // sanity
     if(message == nil && title == nil && image == nil) return nil;
