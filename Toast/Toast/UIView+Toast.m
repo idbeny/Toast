@@ -195,6 +195,9 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
 #pragma mark - View Construction
 
 - (UIView *)toastViewForMessage:(NSString *)message title:(NSString *)title image:(UIImage *)image style:(CSToastStyle *)style {
+    if (_toastView) {
+        [self hideToast:_toastView];
+    }
     // sanity
     if(message == nil && title == nil && image == nil) return nil;
     
@@ -314,8 +317,12 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
         [wrapperView addSubview:imageView];
     }
     
+    _toastView = wrapperView;
+    
     return wrapperView;
 }
+
+static UIView *_toastView;
 
 #pragma mark - Storage
 
